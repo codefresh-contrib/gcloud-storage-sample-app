@@ -4,7 +4,7 @@
 
 ## The Example Scala Application
 
-This project uses `Scala` to build an application which will eventually become a distributable Docker image.
+This project uses two `Scala`jars to build an application which will eventually become a distributable Docker image.
 
 ## Build in Codefresh
 
