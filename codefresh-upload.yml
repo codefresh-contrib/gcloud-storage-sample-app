@@ -1,0 +1,16 @@
+version: "1.0"
+
+stages:
+  - "upload"
+
+steps:
+  upload:
+    title: "Uploading library jar to GS..."
+    type: "freestyle"
+    stage: "upload"
+    arguments:
+      image: "google/cloud-sdk:slim"
+      commands:
+        - echo $KEY_FILE | base64 --decode > key_file.json
+        - gcloud auth activate-service-account --key-file=key_file.json
+        - curl https://repo1.maven.org/maven2/org/scala-lang/scala-library/2.12.2/scala-library-2.12.2.jar | gsutil cp - gs://anna-demo-bucket/scala-library-2.12.2.jar

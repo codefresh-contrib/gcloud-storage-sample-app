@@ -1,0 +1,43 @@
+version: "1.0"
+
+stages:
+  - "clone"
+  - "download"
+  - "build"
+  - "push"
+
+steps:
+  clone:
+    title: "Cloning main repository..."
+    type: "git-clone"
+    stage: "clone"
+    arguments:
+      repo: "codefresh-contrib/gcloud-storage-sample-app"
+      git: "github"
+      revision: "master"
+  download:
+    title: "Downloading dependency lib from GS..."
+    type: "freestyle"
+    stage: "download"
+    working_directory: ${{clone}}
+    arguments:
+      image: "google/cloud-sdk:slim"
+      commands:
+        - gsutil cp gs://anna-demo-bucket/scala-library-2.12.2.jar .
+  build:
+    title: "Building docker image..."
+    type: "build"
+    stage: "build"
+    working_directory: ${{clone}}
+    arguments:
+      image_name: "annabaker/gcloud-storage-sample-app"
+      tag: "master"
+  push_to_my_registry:
+    stage: "push"
+    type: "push"
+    title: "Pushing to external registry..."
+    arguments:
+      candidate: ${{build}}
+      tag: '1.0.0'
+      registry: "dockerhub"  
+
