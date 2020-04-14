@@ -1,6 +1,6 @@
 
 # Using Codefresh to Upload/Download to/from a Google Storage Bucket
-![gcp and Codefresh](gcp-and-codefresh)
+![gcp and Codefresh](gcp-and-codefresh.png)
 
 ## The Example Scala Application
 
